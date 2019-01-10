@@ -31,7 +31,7 @@
     "bitcore-payment-protocol": "^1.2.2",
     "json-stable-stringify": "^1.0.0",
     "lodash": "^4.17.4",
-    "preconditions": "^1.0.8",
+    "preconditions": "^2.2.1",
     "sjcl": "1.0.3",
     "superagent": "^3.4.1"
   },
@@ -43,10 +43,10 @@
     "grunt": "~0.4.0",
     "grunt-jsdox": "^0.1.7",
     "istanbul": "*",
-    "mocha": "^1.18.2",
+    "mocha": "^5.2.0",
     "sinon": "^1.10.3",
     "supertest": "^3.0.0",
-    "tingodb": "^0.3.4",
+    "tingodb": "^0.6.1",
     "uglify": "^0.1.1",
     "uuid": "^2.0.1"
   },
