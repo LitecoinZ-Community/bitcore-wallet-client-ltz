@@ -958,42 +958,6 @@ describe('client API', function() {
         signatures[0].should.equal('3045022100cfacaf8e4c9782f33f717eba3162d44cf9f34d9768a3bcd66b7052eb0868a0880220015e930e1f7d9a8b6b9e54d1450556bf4ba95c2cf8ef5c55d97de7df270cc6fd');
         signatures[1].should.equal('3044022069cf6e5d8700ff117f754e4183e81690d99d6a6443e86c9589efa072ecb7d82c02204c254506ac38774a2176f9ef56cc239ef7867fbd24da2bef795128c75a063301');
       });
-      it('should sign BCH proposal correctly', function() {
-        var toAddress = 'msj42CCGruhRsFrGATiUuh25dtxYtnpbTx';
-        var changeAddress = 'msj42CCGruhRsFrGATiUuh25dtxYtnpbTx';
-
-        var publicKeyRing = [{
-          xPubKey: new Bitcore.HDPublicKey(derivedPrivateKey['BIP44']),
-        }];
-
-        var utxos = helpers.generateUtxos('P2PKH', publicKeyRing, 'm/1/0', 1, [1000, 2000]);
-        var txp = {
-          version: 3,
-          coin: 'bch',
-          inputs: utxos,
-          outputs: [{
-            toAddress: toAddress,
-            amount: 800,
-            message: 'first output'
-          }, {
-            toAddress: toAddress,
-            amount: 900,
-            message: 'second output'
-          }],
-          changeAddress: {
-            address: changeAddress
-          },
-          requiredSignatures: 1,
-          outputOrder: [0, 1, 2],
-          fee: 10000,
-          derivationStrategy: 'BIP44',
-          addressType: 'P2PKH',
-        };
-        var signatures = Client.signTxp(txp, derivedPrivateKey['BIP44']);
-        signatures.length.should.be.equal(utxos.length);
-        signatures[0].should.equal('304402200aa70dfe99e25792c4a7edf773477100b6659f1ba906e551e6e5218ec32d273402202e31c575edb55b2da824e8cafd02b4769017ef63d3c888718cf6f0243c570d41');
-        signatures[1].should.equal('3045022100afde45e125f654453493b40d288cd66e8a011c66484509ae730a2686c9dff30502201bf34a6672c5848dd010b89ea1a5f040731acf78fec062f61b305e9ce32798a5');
-      });
     });
   });
 
@@ -1004,7 +968,7 @@ describe('client API', function() {
         var walletId = Uuid.v4();
         var walletPrivKey = new Bitcore.PrivateKey();
         var network = i % 2 == 0 ? 'testnet' : 'livenet';
-        var coin = i % 3 == 0 ? 'bch' : 'ltz';
+        var coin = 'ltz';
         var secret = Client._buildSecret(walletId, walletPrivKey, coin, network);
         var result = Client.parseSecret(secret);
         result.walletId.should.equal(walletId);
@@ -1169,44 +1133,6 @@ describe('client API', function() {
         });
       });
     });
-    it('should create Bitcoin Cash wallet', function(done) {
-      clients[0].seedFromRandomWithMnemonic({
-        coin: 'bch'
-      });
-      clients[0].createWallet('mycashwallet', 'pepe', 1, 1, {
-        coin: 'bch'
-      }, function(err, secret) {
-        should.not.exist(err);
-        clients[0].getStatus({}, function(err, status) {
-          should.not.exist(err);
-          status.wallet.coin.should.equal('bch');
-          done();
-        })
-      });
-    });
-
-    it('should create a BCH  address correctly', function(done) {
-      var xPriv = 'xprv9s21ZrQH143K3GJpoapnV8SFfukcVBSfeCficPSGfubmSFDxo1kuHnLisriDvSnRRuL2Qrg5ggqHKNVpxR86QEC8w35uxmGoggxtQTPvfUu';
-      clients[0].seedFromExtendedPrivateKey(xPriv, {
-        'coin': 'bch',
-      });
-      clients[0].createWallet('mycashwallet', 'pepe', 1, 1, {
-        coin: 'bch'
-      }, function(err, secret) {
-        should.not.exist(err);
-
-        clients[0].createAddress(function(err, x) {
-          should.not.exist(err);
-          should.not.exist(err);
-          x.coin.should.equal('bch');
-          x.network.should.equal('livenet');
-          x.address.should.equal('CcJ4qUfyQ8x5NwhAeCQkrBSWVeXxXghcNz');
-          done();
-        })
-      });
-    });
-
-
 
     it('should check balance in a 1-1 ', function(done) {
       helpers.createAndJoinWallet(clients, 1, 1, function() {
@@ -1658,17 +1584,6 @@ describe('client API', function() {
         should.not.exist(err);
         should.exist(levels);
         _.difference(['priority', 'normal', 'economy'], _.map(levels, 'level')).should.be.empty;
-        done();
-      });
-    });
-    it('should get default fee levels for BCH', function(done) {
-      blockchainExplorerMock.setFeeLevels({});
-      clients[0].credentials = {};
-      clients[0].getFeeLevels('bch', 'livenet', function(err, levels) {
-        should.not.exist(err);
-        should.exist(levels);
-        levels[0].level.should.equal('normal');
-        levels[0].feePerKb.should.equal(2000);
         done();
       });
     });
@@ -2681,44 +2596,6 @@ describe('client API', function() {
         });
       });
 
-    });
-
-    describe('BCH', function(done) {
-      beforeEach(function(done) {
-        setup(1, 1, 'bch', 'livenet', done);
-      });
-
-      it('Should sign proposal', function(done) {
-        var toAddress = 'CfNCvxmKYzZsS78pDKKfrDd2doZt3w4jUs';
-        var opts = {
-          outputs: [{
-            amount: 1e8,
-            toAddress: toAddress,
-          }, {
-            amount: 2e8,
-            toAddress: toAddress,
-          }],
-          feePerKb: 100e2,
-          message: 'just some message',
-          coin: 'bch',
-        };
-        clients[0].createTxProposal(opts, function(err, txp) {
-          should.not.exist(err);
-          should.exist(txp);
-          clients[0].publishTxProposal({
-            txp: txp,
-          }, function(err, publishedTxp) {
-            should.not.exist(err);
-            should.exist(publishedTxp);
-            publishedTxp.status.should.equal('pending');
-            clients[0].signTxProposal(publishedTxp, function(err, txp) {
-              should.not.exist(err);
-              txp.status.should.equal('accepted');
-              done();
-            });
-          });
-        });
-      });
     });
   });
 
@@ -5160,10 +5037,9 @@ describe('client API', function() {
   });
 
   var addrMap = {
-    ltz: ['1PuKMvRFfwbLXyEPXZzkGi111gMUCs6uE3','1GG3JQikGC7wxstyavUBDoCJ66bWLLENZC'],
-    bch: ['CfNCvxmKYzZsS78pDKKfrDd2doZt3w4jUs','CXivsT4p9F6Us1oQGfo6oJpKiDovJjRVUE']
+    ltz: ['1PuKMvRFfwbLXyEPXZzkGi111gMUCs6uE3','1GG3JQikGC7wxstyavUBDoCJ66bWLLENZC']
   };
-  _.each(['bch', 'ltz'], function(coin) {
+  _.each(['ltz'], function(coin) {
     var addr= addrMap[coin];
 
     describe('Sweep paper wallet ' + coin, function() {
