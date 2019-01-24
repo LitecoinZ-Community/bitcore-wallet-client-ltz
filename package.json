@@ -1,12 +1,12 @@
 {
   "name": "bitcore-wallet-client-ltz",
   "description": "Client for bitcore-wallet-service-ltz",
-  "author": "LitecoinZ Community",
-  "version": "1.0.3",
+  "author": "BitPay Inc",
+  "version": "8.0.0",
   "license": "MIT",
   "keywords": [
     "litecoinz",
-    "copay",
+    "copay-ltz",
     "multisig",
     "wallet",
     "client",
@@ -27,10 +27,10 @@
     "async": "^0.9.0",
     "bip38": "^1.3.0",
     "bitcore-lib-ltz": "git+https://github.com/LitecoinZ-Community/bitcore-lib-ltz.git",
-    "bitcore-mnemonic": "^1.2.2",
-    "bitcore-payment-protocol": "^1.2.2",
+    "bitcore-mnemonic-ltz": "git+https://github.com/LitecoinZ-Community/bitcore-mnemonic-ltz.git",
+    "bitcore-payment-protocol-ltz": "git+https://github.com/LitecoinZ-Community/bitcore-payment-protocol-ltz.git",
     "json-stable-stringify": "^1.0.0",
-    "lodash": "^4.17.4",
+    "lodash": "^4.17.11",
     "preconditions": "^2.2.1",
     "sjcl": "1.0.3",
     "superagent": "^3.4.1"
@@ -40,21 +40,15 @@
     "browserify": "^13.1.0",
     "chai": "^1.9.1",
     "coveralls": "^3.0.2",
-    "grunt": "~0.4.0",
-    "grunt-jsdox": "^0.1.7",
     "istanbul": "*",
     "mocha": "^5.2.0",
-    "sinon": "^1.10.3",
+    "mongodb": "^2.0.27",
+    "sinon": "^7.1.1",
     "supertest": "^3.0.0",
-    "tingodb": "^0.6.1",
-    "uglify": "^0.1.1",
     "uuid": "^2.0.1"
   },
   "scripts": {
     "start": "node app.js",
-    "coverage": "./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha -- --reporter spec test",
-    "test": "./node_modules/.bin/mocha",
-    "coveralls": "./node_modules/.bin/istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage",
     "docs": "./node_modules/.bin/jsdox lib/* lib/common lib/errors -o docs && cat README.header.md  docs/*.md LICENSE > README.md"
   }
 }

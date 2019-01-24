@@ -1,0 +1,25 @@
+{
+  "name": "bitcore-wallet-client-ltz",
+  "main": "index.js",
+  "version": "2.1.1",
+  "homepage": "https://github.com/LitecoinZ-Community/bitcore-wallet-client-ltz",
+  "authors": ["BitPay Inc"],
+  "description": "Client for bitcore-wallet-service-ltz",
+  "keywords": [
+    "litecoinz",
+    "copay-ltz",
+    "multisig",
+    "wallet",
+    "client",
+    "bitcore"
+  ],
+  "ignore": [
+    "**/.*",
+    "lib",
+    "node_modules",
+    "Gruntfile.js",
+    "Makefile",
+    "index.js",
+    "Makefile"
+  ]
+}

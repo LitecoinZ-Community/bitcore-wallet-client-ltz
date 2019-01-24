@@ -1,10 +1,6 @@
 # bitcore-wallet-client-ltz
 
-[![NPM Package](https://img.shields.io/npm/v/bitcore-wallet-client-ltz.svg?style=flat-square)](https://www.npmjs.org/package/bitcore-wallet-client-ltz)
-[![Build Status](https://img.shields.io/travis/bitpay/bitcore-wallet-client-ltz.svg?branch=master&style=flat-square)](https://travis-ci.org/bitpay/bitcore-wallet-client-ltz)
-[![Coverage Status](https://coveralls.io/repos/bitpay/bitcore-wallet-client-ltz/badge.svg)](https://coveralls.io/r/bitpay/bitcore-wallet-client-ltz)
-
-The *official* client library for [bitcore-wallet-service-ltz] (https://github.com/LitecoinZ-Community/bitcore-wallet-service-ltz).
+The *LitecoinZ fork* client library for [bitcore-wallet-service-ltz] (https://github.com/LitecoinZ-Community/bitcore-wallet-service-ltz). 
 
 ## Description
 
@@ -14,10 +10,10 @@ See [Bitcore-wallet] (https://github.com/bitpay/bitcore-wallet) for a simple CLI
 
 ## Get Started
 
-You can start using bitcore-wallet-client-ltz with the command below:
+You can start using bitcore-wallet-client-ltz in any of these two ways:
 
-* via [NPM]: by running `npm install https://github.com/LitecoinZ-Community/bitcore-wallet-service-ltz.git`
-from your console.
+* via [Bower](http://bower.io/): by running `bower install bitcore-wallet-client-ltz` from your console
+* or via [NPM](https://www.npmjs.com/package/bitcore-wallet-client-ltz): by running `npm install bitcore-wallet-client-ltz` from your console.
 
 ## Example
 
@@ -41,7 +37,7 @@ var client = new Client({
 
 client.createWallet("My Wallet", "Irene", 2, 2, {network: 'testnet'}, function(err, secret) {
   if (err) {
-    console.log('error: ',err);
+    console.log('error: ',err); 
     return
   };
   // Handle err
@@ -107,14 +103,14 @@ client.joinWallet(secret, "Tomas", {}, function(err, wallet) {
 Install `bitcore-wallet-client-ltz` before start:
 
 ```
-npm install https://github.com/LitecoinZ-Community/bitcore-wallet-service-ltz.git
+npm i bitcore-wallet-client-ltz
 ```
 
 Create a new wallet with the first script:
 
 ```
 $ node irene.js
-info Generating new keys
+info Generating new keys 
  Wallet Created. Share this secret with your copayers: JbTDjtUkvWS4c3mgAtJf4zKyRGzdQzZacfx2S7gRqPLcbeAWaSDEnazFJF6mKbzBvY1ZRwZCbvT
 ```
 
@@ -132,6 +128,6 @@ Return: [...]
 
 ```
 
-Note that the scripts created two files named `irene.dat` and `tomas.dat`. With
-these files you can get status, generate addresses, create proposals, sign
-transactions, etc.
+Note that the scripts created two files named `irene.dat` and `tomas.dat`. With these files you can get status, generate addresses, create proposals, sign transactions, etc.
+
+
